@@ -1,0 +1,23 @@
+{
+  "name": "mouse_control",
+  "version": "1.0.0",
+  "description": "Script para automatizar uso do mouse",
+  "main": "mouse_control.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegodiogenes/mouse_control.git"
+  },
+  "author": "Diego Diógenes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diegodiogenes/mouse_control/issues"
+  },
+  "homepage": "https://github.com/diegodiogenes/mouse_control#readme",
+  "dependencies": {
+    "gkm": "^0.1.0",
+    "robotjs": "^0.4.7"
+  }
+}
