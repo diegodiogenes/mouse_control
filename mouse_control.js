@@ -13,19 +13,27 @@ var aux = true;
 var controle = true;
 
 var receiver = new pupil_remote.MessageReceiver("127.0.0.1", 50020, 2);
+var tempo_inicio_da_piscada;
+var tempo;
 
 
 receiver.on('blinks', function (data) {
-    data['topic'] = String(data['topic']);
+
+    if(data['topic'] == 'close'){
+      tempo_inicio_da_piscada = String(data['timestamp']);
+    }else if(data['topic']=='open'){
+      tempo_inicio_da_piscada = 0;
+    }
+
     if(data['topic'] == 'blink'){
       console.log('PISCOU KRAI');
-      a = 'A';
+      tempo = String(data['timestamp']) - tempo_inicio_da_piscada;
+      console.log(tempo)
     }else{
       console.log('PISCOU NAO');
     }
 
 });
-
 
 gkm.events.on('key.*', function(data) {
     a = data.toString()
