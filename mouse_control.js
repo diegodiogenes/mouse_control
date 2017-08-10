@@ -1,4 +1,5 @@
 const robot = require('robotjs');
+var pupil_remote = require("pupil-remote");
 var gkm = require('gkm');
 const screenSize = robot.getScreenSize();
 const width = screenSize.width;
@@ -10,6 +11,21 @@ var y=(height/2);
 var a;
 var aux = true;
 var controle = true;
+
+var receiver = new pupil_remote.MessageReceiver("127.0.0.1", 50020, 2);
+
+
+receiver.on('blinks', function (data) {
+    data['topic'] = String(data['topic']);
+    if(data['topic'] == 'blink'){
+      console.log('PISCOU KRAI');
+      a = 'A';
+    }else{
+      console.log('PISCOU NAO');
+    }
+
+});
+
 
 gkm.events.on('key.*', function(data) {
     a = data.toString()
