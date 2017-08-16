@@ -5,7 +5,6 @@ const screenSize = robot.getScreenSize();
 const width = screenSize.width;
 const height = screenSize.height;
 
-
 var x=0;
 var y=(height/2);
 var a;
@@ -15,6 +14,7 @@ var controle = true;
 var receiver = new pupil_remote.MessageReceiver("127.0.0.1", 50020, 2);
 var tempo_inicio_da_piscada;
 var tempo;
+var tempo_piscada = 0.8;
 
 
 receiver.on('blinks', function (data) {
@@ -31,6 +31,10 @@ receiver.on('blinks', function (data) {
       console.log(tempo)
     }else{
       console.log('PISCOU NAO');
+    }
+
+    if(tempo>tempo_piscada){
+      a = 'A';
     }
 
 });
