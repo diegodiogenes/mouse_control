@@ -10,6 +10,8 @@ var y=(height/2);
 var a;
 var aux = true;
 var controle = true;
+var repeticao = 200;
+var linhas_passando = 30;
 
 var receiver = new pupil_remote.MessageReceiver("127.0.0.1", 50020, 2);
 var tempo_inicio_da_piscada;
@@ -21,20 +23,24 @@ receiver.on('blinks', function (data) {
 
     if(data['topic'] == 'close'){
       tempo_inicio_da_piscada = String(data['timestamp']);
+      linhas_passando = 200;
     }else if(data['topic']=='open'){
       tempo_inicio_da_piscada = 0;
+      linhas_passando = 30;
     }
 
     if(data['topic'] == 'blink'){
       console.log('PISCOU KRAI');
       tempo = String(data['timestamp']) - tempo_inicio_da_piscada;
-      console.log(tempo)
+      console.log(tempo);
+
+      if(tempo>tempo_piscada){
+        a = 'A';
+        linhas_passando = 30;
+      }
+
     }else{
       console.log('PISCOU NAO');
-    }
-
-    if(tempo>tempo_piscada){
-      a = 'A';
     }
 
 });
@@ -112,6 +118,6 @@ var movemouse = function(){
     movemouse_y();
   }
 
-  setTimeout(movemouse, 30);
+  setTimeout(movemouse, linhas_passando);
 }
 movemouse();
