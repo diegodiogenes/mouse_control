@@ -3,7 +3,7 @@ var pupil_remote = require("pupil-remote");
 var gkm = require('gkm');
 const screenSize = robot.getScreenSize();
 const width = screenSize.width;
-const height = screenSize.height;
+const height = screenSize.height * 0.75;
 
 var x=0;
 var y=(height/2);
@@ -11,38 +11,44 @@ var a;
 var aux = true;
 var controle = true;
 var repeticao = 200;
-var linhas_passando = 30;
+var linhas_passando = 10;
 
 var receiver = new pupil_remote.MessageReceiver("127.0.0.1", 50020, 2);
 var tempo_inicio_da_piscada;
 var tempo;
-var tempo_piscada = 0.8;
+var tempo_piscada = 1.2;
+var fechado=0;
 
 
 receiver.on('blinks', function (data) {
 
     if(data['topic'] == 'close'){
       tempo_inicio_da_piscada = String(data['timestamp']);
-      linhas_passando = 200;
+      linhas_passando = 300;
+      fechado = String(data['fechado']);
+      if(fechado>0.20){
+        linhas_passando = 2000;
+      }else{
+        linhas_passando = 10;
+      }
     }else if(data['topic']=='open'){
       tempo_inicio_da_piscada = 0;
-      linhas_passando = 30;
+      linhas_passando = 10;
     }
 
     if(data['topic'] == 'blink'){
       console.log('PISCOU KRAI');
-      tempo = String(data['timestamp']) - tempo_inicio_da_piscada;
+      tempo = String(data['tempo']);
       console.log(tempo);
 
       if(tempo>tempo_piscada){
         a = 'A';
-        linhas_passando = 30;
+        linhas_passando = 10;
       }
 
     }else{
-      console.log('PISCOU NAO');
+      //console.log('PISCOU NAO');
     }
-
 });
 
 gkm.events.on('key.*', function(data) {
