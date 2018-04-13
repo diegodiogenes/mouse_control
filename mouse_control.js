@@ -1,6 +1,6 @@
 const robot = require('robotjs');
 var pupil_remote = require("pupil-remote");
-var gkm = require('gkm');
+// var gkm = require('gkm');
 const screenSize = robot.getScreenSize();
 const width = screenSize.width;
 const height = screenSize.height * 0.75;
@@ -23,40 +23,28 @@ var fechado=0;
 receiver.on('blinks', function (data) {
 
     if(data['topic'] == 'close'){
-      tempo_inicio_da_piscada = String(data['timestamp']);
-      linhas_passando = 300;
-      fechado = String(data['fechado']);
-      if(fechado>0.20){
-        linhas_passando = 2000;
-      }else{
-        linhas_passando = 10;
-      }
+      linhas_passando = 3000;
+
     }else if(data['topic']=='open'){
-      tempo_inicio_da_piscada = 0;
       linhas_passando = 10;
     }
 
     if(data['topic'] == 'blink'){
       console.log('PISCOU KRAI');
-      tempo = String(data['tempo']);
-      console.log(tempo);
-
-      if(tempo>tempo_piscada){
-        a = 'A';
-        linhas_passando = 10;
-      }
+      a = 'A';
+      linhas_passando = 10;
 
     }else{
       //console.log('PISCOU NAO');
     }
 });
 
-gkm.events.on('key.*', function(data) {
-    a = data.toString()
-    if(a == 'A' || a =='B'){
-      console.log(a);
-    }
-});
+// gkm.events.on('key.*', function(data) {
+//     a = data.toString()
+//     if(a == 'A' || a =='B'){
+//       console.log(a);
+//     }
+// });
 
 function verifica_clique_x(){
   if(a=='A'){
