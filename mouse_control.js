@@ -30,7 +30,6 @@ receiver.on('blinks', function (data) {
     }
 
     if(data['topic'] == 'blink'){
-      console.log('PISCOU KRAI');
       a = 'A';
       linhas_passando = 10;
 
