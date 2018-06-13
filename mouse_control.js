@@ -64,7 +64,7 @@ function verifica_clique_y(){
 
 
 function verifica_x(){
-  if(x==0){
+  if(x<10){
     aux = true;
   }else if(x>=width){
     aux = false;
@@ -72,7 +72,7 @@ function verifica_x(){
 }
 
 function verifica_y(){
-  if(y==0){
+  if(y<10){
     aux = true;
   }else if(y>=height){
     aux = false;
