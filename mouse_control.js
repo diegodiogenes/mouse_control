@@ -19,7 +19,33 @@ var tempo;
 var tempo_piscada = 1.2;
 var fechado=0;
 
+// worker.js
+var zmq = require('zeromq')
+  , sock = zmq.socket('pull');
 
+sock.connect('tcp://127.0.0.1:3000');
+console.log('Worker connected to port 3000');
+
+sock.on('message', function(msg){
+  console.log("aaaaaa")
+  if(msg.toString()=='open'){
+    linhas_passando = 10;
+  }
+  if(msg.toString() == 'blink'){
+    a = 'A';
+    linhas_passando = 10;
+  }
+});
+// worker.js
+// var zmq = require('zeromq')
+//   , sock = zmq.socket('pull');
+//
+// sock.connect('tcp://127.0.0.1:3000');
+// console.log('Worker connected to port 3000');
+//
+// sock.on('message', function(msg){
+//   console.log('work: %s', msg.toString());
+// });
 receiver.on('blinks', function (data) {
 
     if(data['topic'] == 'close'){
